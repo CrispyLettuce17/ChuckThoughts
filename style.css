@@ -1,0 +1,510 @@
+/* ============================================================
+   BLOG STYLESHEET
+   ============================================================
+   Table of contents:
+   1. CSS Variables (light + dark theme)
+   2. Reset & Base
+   3. Header & Nav
+   4. Hero
+   5. Controls (search + tag filters)
+   6. Post Grid & Cards
+   7. About Section
+   8. Footer
+   9. Animations
+   10. Responsive
+   ============================================================ */
+
+
+/* ── 1. CSS Variables ─────────────────────────────────────── */
+:root {
+  /* Colors – Light theme */
+  --bg:          #faf8f4;
+  --surface:     #ffffff;
+  --border:      #e8e2d9;
+  --text:        #1a1714;
+  --text-muted:  #7a736a;
+  --accent:      #c0392b;
+  --accent-dark: #962d22;
+  --tag-bg:      #f0ece5;
+  --tag-active:  #c0392b;
+  --tag-text:    #4a443d;
+  --shadow:      0 2px 12px rgba(0,0,0,0.07);
+  --shadow-hover:0 8px 30px rgba(0,0,0,0.13);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Source Serif 4', Georgia, serif;
+
+  /* Spacing */
+  --max-width: 1100px;
+  --gap: 2rem;
+}
+
+[data-mode="dark"][data-theme="default"],
+[data-theme="dark"] {
+  --bg:          #141210;
+  --surface:     #1f1d1a;
+  --border:      #2e2b27;
+  --text:        #f0ece5;
+  --text-muted:  #9a9088;
+  --accent:      #e05c4b;
+  --accent-dark: #c0392b;
+  --tag-bg:      #2a2724;
+  --tag-active:  #e05c4b;
+  --tag-text:    #c8bfb5;
+  --shadow:      0 2px 12px rgba(0,0,0,0.3);
+  --shadow-hover:0 8px 30px rgba(0,0,0,0.5);
+}
+
+
+
+/* ── 2. Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { display: block; width: 100%; }
+
+code {
+  font-family: monospace;
+  background: var(--tag-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+
+/* ── 3. Header & Nav ──────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  transition: background 0.3s;
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent); }
+
+.theme-toggle {
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  width: 44px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+.theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.theme-select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  min-width: 180px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Show/hide sun & moon based on theme */
+[data-mode="light"] .icon-moon { display: none; }
+[data-mode="dark"]  .icon-sun  { display: none; }
+
+
+/* ── 4. Hero ──────────────────────────────────────────────── */
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin-top: 2rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--text);
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 480px;
+}
+
+
+/* ── 5. Controls (search + filters) ──────────────────────── */
+.controls {
+  max-width: var(--max-width);
+  margin: 0 auto 2.5rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-input {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.6rem 1.1rem;
+  width: 260px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.sort-select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  min-width: 180px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.tag-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.tag-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.tag-btn.active {
+  background: var(--tag-active);
+  color: #fff;
+  border-color: var(--tag-active);
+}
+
+
+/* ── 6. Post Grid & Cards ─────────────────────────────────── */
+.post-grid {
+  max-width: var(--max-width);
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--gap);
+}
+
+.post-page {
+  max-width: var(--max-width);
+  margin: 0 auto 4rem;
+  padding: 0 2rem 4rem;
+}
+
+.post-article {
+  display: grid;
+  gap: 1.75rem;
+  padding-top: 2.5rem;
+}
+
+.post-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  line-height: 1.12;
+  margin-bottom: 1rem;
+}
+
+.post-header p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 760px;
+}
+
+.post-section h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+}
+
+.post-section p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.8;
+}
+
+.post-image {
+  width: 100%;
+  max-width: 35%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem auto;
+  box-shadow: var(--shadow);
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .post-page {
+    padding: 0 1.25rem 3rem;
+  }
+}
+
+.post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: fadeUp 0.5s ease both;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  background: var(--tag-bg); /* fallback if no image */
+}
+
+/* Placeholder colour block when no image is set */
+.card-image-placeholder {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--tag-bg) 0%, var(--border) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.card-body {
+  padding: 1.4rem 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.card-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin-bottom: 0.55rem;
+  letter-spacing: -0.3px;
+}
+
+.card-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  flex: 1;
+  margin-bottom: 1.2rem;
+}
+
+.card-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-meta .dot { opacity: 0.4; }
+
+.card-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: gap 0.2s;
+}
+
+.card-link::after { content: ' →'; }
+.card-link:hover { text-decoration: underline; }
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+
+/* ── 7. About Section ─────────────────────────────────────── */
+.about-section {
+  border-top: 1px solid var(--border);
+  padding: 5rem 2rem;
+  margin-top: 2rem;
+}
+
+.about-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.about-inner h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.about-inner p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.about-inner p + p {
+  margin-top: 1rem;
+}
+
+
+/* ── 8. Footer ────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+
+/* ── 9. Animations ────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ── 10. Responsive ───────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero { padding: 3rem 1.25rem 2.5rem; }
+  .controls { padding: 0 1.25rem; }
+  .post-grid { padding: 0 1.25rem; }
+  .search-input { width: 100%; }
+  .header-inner { padding: 0 1.25rem; }
+}
