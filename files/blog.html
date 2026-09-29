@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog · Chuck Thoughts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Chuck Thoughts</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="blog.html" class="active">Blog</a>
+        <a href="media.html">Media</a>
+      </nav>
+      <div class="theme-controls">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Blog</p>
+      <h1 class="hero-title">Written Pieces</h1>
+      <p class="hero-subtitle">A space for me to collect my thoughts about the things that keep me up at night.</p>
+    </div>
+  </section>
+
+  <section class="controls">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search posts…" />
+    <select id="sortSelect" class="sort-select" aria-label="Sort posts">
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+    </select>
+    <div class="tag-filters" id="tagFilters"></div>
+  </section>
+
+  <main class="post-grid" id="postGrid"></main>
+  <p class="no-results" id="noResults" hidden>No posts found. Try a different search!</p>
+
+  <footer class="site-footer">
+    <p>© 2026 Chuck Thoughts · Built with HTML, CSS & JS</p>
+  </footer>
+
+  <script src="posts.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
